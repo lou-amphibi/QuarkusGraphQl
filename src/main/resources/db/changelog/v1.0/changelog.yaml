@@ -1,0 +1,100 @@
+databaseChangeLog:
+  - changeSet:
+      id: 16837326001798-01
+      author: alexey mamaev
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: tariffPK
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: update_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(128)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: is_archived
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  constraints:
+                    nullable: false
+                  name: is_removed
+                  type: boolean
+                  defaultValueBoolean: false
+            tableName: tariff
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: tariff_servicesPK
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: tariff_id
+                  type: BIGINT
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: update_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(128)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: category
+                  type: VARCHAR(128)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: value
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: is_removed
+                  type: boolean
+                  defaultValueBoolean: false
+            tableName: tariff_services
+  - changeSet:
+      id: 16837393881657-02
+      author: alexey mamaev
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: tariff_id
+            baseTableName: tariff_services
+            constraintName: tariff_services_fk01
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: tariff
+            validate: true
+
+
+
